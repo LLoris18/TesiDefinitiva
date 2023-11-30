@@ -1,0 +1,67 @@
+/* Stile per il corpo della pagina dashboard */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stile per la barra laterale di navigazione */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+/* Stile per il logo nella barra laterale */
+.logo {
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Stile per gli elementi di navigazione nella barra laterale */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #555;
+}
+
+/* Stile per l'area principale della dashboard */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+/* Stile per l'intestazione nella pagina dashboard */
+.content header {
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per il piè di pagina */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}

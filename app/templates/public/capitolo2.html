@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Capitolo 2</title>
+  <!-- Stili di Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Stili di highlight.js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css" rel="stylesheet">
+  <!-- Script di highlight.js -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="display-3">Capitolo 2: Interazione con le pagine Web: i form</h1>
+    <hr>
+    <p>Sarà capitato a tutti, anche molto frequentemente, di dover fare acquisti online o doversi registrare ad un sito internet. In entrambi i casi il fattore comune è quello di dover inserire dei dati e comunicarli al sito che poi provvederà ad usufruirne. È importante quindi indicare correttamente all’utente gli spazi in cui poter inserire i propri dati, adattandoli anche al tipo di dato da dover comunicare; tali spazi vengono definiti form.</p>
+    <br>
+    <p>Un form, più nello specifico, è un modulo in cui è possibile raccogliere gli input dell’utente. Genericamente per descriverli si fa riferimento alla metafora della scheda da compilare in cui poter inserire dati di vario tipo che verranno immagazzinati all’interno di un database e gestiti anche mediante il sito Web.</p>
+    <br>
+    <p>Sempre restando nell’ambito della programmazione Web, sfruttando Flask, uno strumento molto utile da utilizzare proprio per gestire i form è Flask-WTF. Quest’estensione sfrutta Flask come involucro attorno al framework indipendente</p>
+    <br>
+    <p>WTForms che ha come scopo quello di rendere l’esperienza con i form più piacevole, oltre a introdurre sistemi di validazione dati e protezione di questi ultimi.</p>
+    <p>Flask-WTF, come anche i pacchetti visti fin ora, può essere installato mediante il comando pip, con la seguente riga di codice:</p>
+    <div class="container mt-4">
+        <pre><code class="python">
+            pip install flask-wtf
+        </code></pre>
+    </div>
+    <h1 class="display-3">2.1 La sicurezza dei form </h1>
+    <p>La prima cosa di cui tener conto quando si parla di form, quindi di inserimento dati, è sicuramente la protezione di questi ultimi. Esistono diverse tipologie di attacchi hacker sul Web, alcuni molto dannosi, altri meno, tutti con il fattore comune di dover arrecare un disagio all’utente e al gestore del sito o della rete. Uno di questi attacchi è noto come Cross-Site Request Forgery (CSRF); lo scopo di tale azione è quello di ingannare un utente autenticato, costringerlo ad eseguire azioni non volute inviando richieste dannose senza che se ne renda conto; esempi di richieste o azioni che chi attacca vuole far svolgere all’utente potrebbero essere la modifica di una password o l’acquisto di un prodotto.</p>
+    <br>
+    <p>Il funzionamento dell’attacco è piuttosto semplice: un hacker formalizza una richiesta sotto forma di URL da inviare al sito Web e incorpora questa richiesta all’interno di un link da inviare ad un visitatore del sito, sperando che quest’ultimo sia loggato all’interno del sito. Il visitatore, cliccando sul link, inoltrerà inconsciamente la richiesta al sito che, a sua volta, assumendo che la richiesta sia totalmente legittima, darà accesso al contenuto richiesto da parte dell’hacker.</p>
+    <br>
+    <img src="static/assets/img/portfolio/csrf.png" class="text-align center" width="800" height="500">
+    <p>Di default il pacchetto Flask-WTF offre un buon livello di protezione contro gli attacchi CSRF, se eventualmente però si volesse aggiungere un ulteriore garanzia di protezione si potrebbe chiedere all’applicazione, quindi all’utente, di dichiarare una chiave di crittografia; Flask-WTF procederà ad utilizzare tale chiave per generare dei token, utilizzati per verificare l’autenticità delle richieste relative a dati presenti nel form. Per implementare questa feature sarà semplicemente richiesto di utilizzare la seguente riga di codice:</p>
+    <div class="container mt-4">
+        <pre><code class="python">
+            app.config[‘SECRET_KEY’] = ‘stringa_complessa’
+        </code></pre>
+    </div>
+    <p>Il costrutto app.config è un dizionario per contenere variabili utilizzate dal framework, dalle estensioni o dall’applicazione stessa. Il parametro SECRET_KEY è una variabile di configurazione, utilizzata sia da Flask che da altre applicazioni di terze parti come chiave di crittografia; così come suggerisce il nome stesso, l’efficacia della crittografia dipende dal valore della variabile utilizzata e dal suo rimanere, appunto, segreta.</p>
+    <h1 class="display-3">2.2 Come creare un form</h1>
+    <p>Una volta installato il pacchetto Flask-WTF all’interno dell’interprete, sarà possibile quindi sfruttarne tutte le funzioni. Ogni Web form, secondo Flask-WTF, viene rappresentato mediante una classe che eredita buona parte delle sue caratteristiche da una generica classe Form. Quest’ultima a sua volta definisce una lista di campi che possono essere compilati da parte dell’utente, ognuno rappresentato da un oggetto; ogni oggetto può avere uno o più validatori collegati, in grado quindi di verificare l’integrità dei dati.</p>
+    <br>
+    <p>Di seguito verrà illustrata la procedura guidata per visualizzare un form con una semplice riga di testo e un bottone. Il primo step da eseguire per creare il form è quindi dichiarare la classe Form e i suoi oggetti; per fare ciò avremo bisogno di importare diversi oggetti dalla libreria Flask-WTF precedentemente installata:</p>
+    <div class="container mt-4">
+        <pre><code class="python">
+          from flask_wtf import FlaskForm
+          from wtforms import StringField,SubmitField
+          from wtforms.validators import DataRequired
+        </code></pre>
+    </div>
+    <p>Il primo elemento importato è FlaskForm, una sottoclasse di Flask_WTF, specializzata nell’utilizzo dei form. Successivamente dalla libreria wtforms importiamo StringField, ovvero la riga di testo in cui poter scrivere, e SubmitField, il bottone per poter inviare i dati. Infine, da wtforms.validators importiamo il validatore DataRequired che sottolinea la necessità di dover inserire i dati, altrimenti verrà visualizzato un errore.</p>
+    <br>
+    <p>Nel seguito verranno descritte le righe di codice per la creazione della classe:</p>
+    <br>
+    <div class="container mt-4">
+        <pre><code class="python">
+          class NameForm(FlaskForm):
+              name = StringField('Come ti chiami?',
+              validators=[DataRequired()])
+              submit = SubmitField('Invia')
+        </code></pre>
+    </div>
+    <br>
+    <p>I campi nel form sono definiti come variabili di classe e ad ogni variabile viene poi assegnato un oggetto associato al tipo di dato da contenere in quel campo. Nell’ esempio in questione nela classe NameForm è presente un input dell’utente sotto forma di campo di testo a cui è assegnata una variabile name; allo stesso modo il tasto submit è pur sempre un input dell’utente di tipo submit a cui è assegnata una variabile anch’essa di nome submit. All’interno della dichiarazione della variabile name, è presente il parametro validators = [DataRequired()], questo controlla che l’utente abbia inserito, in questo caso, un nome prima di premere il tasto di invio dei dati.</p>
+    <br>
+    <p>In questo primo semplice esempio il dato che si vuole comunicare è un nome, quindi sfruttiamo un campo testuale. Tuttavia, i campi supportati da HTML e WTForms sono tanti; e tra i più importanti figurano:</p>
+    <ul>
+      <li>PasswordField</li>
+      Come intuibile dal nome, viene utilizzato per proteggere la scrittura delle password, sostituendo quest’ultima con un carattere specifico
+      <li>BooleanField</li>
+      Rappresenta una scelta di tipo vero o falso
+      <li>SelectField</li>
+      Una lista a cascata di valori, in cui è possibile selezionarne solo uno; nel caso volessimo avere la scelta multipla dovremmo variare il campo in SelectMultipleField
+      <li>IntegerField</li>
+      È il campo utilizzato per inserire numeri con valore intero
+    </ul>
+    <p>Circa per ogni campo presente all’interno della lista di quelli supportati dal framework FlaskWTF esiste un validatore in grado di garantire l’integrità del dato che verrà inserito. Per esempio, nel caso in cui nel campo StringField dovesse essere inserita una E-mail, potremmo utilizzare il validatore E-mail che andrà a verificare se ciò che fosse stato inserito sia effettivamente un indirizzo di posta elettronica.</p>
+    <br>
+    <h1 class="display-3">2.2.1 Gestire i form nelle view function</h1>
+    <p>Creare la classe come fatto in precedenza è solo uno degli step per poter effettivamente visualizzare ed utilizzare il form all’interno della pagina Web. La gestione dei form nelle view function si riferisce nello specifico a come vengono processati i dati forniti dall’utente all’interno del form HTML. Tali processi includono la ricezione, validazione e scelta dell’azione più appropriata da eseguire in base ai dati ricevuti. Per spiegare come questi processi vengano eseguiti verrà descritto direttamente il codice utilizzato per l’esempio della stringa di testo e il bottone di invio. In particolare, le righe di codice utilizzate sono le seguenti:</p>
+    <div class="container mt-4">
+        <pre><code class="python">
+          @app.route('/',methods = ['GET','POST'])
+          def index():
+              name = None
+              form = NameForm()
+              if form.validate_on_submit():
+                  name = form.name.data
+                  form.name.data = ''
+              return render_template('user1.html',form=form,name=name)
+        </code></pre>
+    </div>
+    <p>All’interno dell’app.route, il parametro methods viene utilizzato per indicare a Flask che la view function seguente gestirà le richieste di tipo GET e POST; nel caso in cui methods non fosse indicato, la view verrà automaticamente registrata per gestire richieste solo di tipo GET. Entrambi i metodi GET e POST sono utilizzati per inviare e ricevere informazioni tra un browser Web e un Web server; la differenza sostanziale tra i due metodi sta nella visibilità dei parametri URL, i quali appaiono all’interno dell’URL nel metodo GET, ma non nel metodo post</p>
+    <br>
+    <p>La variabile name, locale, creata all’interno della funzione, conterrà il nome che verrà inserito all’interno della casella testuale del form; tuttavia, al primo avvio della pagina, l’utente non avrà inserito alcun nome e la variabile verrà settata su None. Nella funzione viene poi creata un’istanza della classe NameForm creata in precedenza, in modo tale da poter sfruttare una particolare feature di questa classe: la validate_on_submit(). Quest’ultimo metodo restituirà un valore booleano, che sarà True nel caso in cui il form verrà inviato e i dati verranno ritenuti validi dopo i controlli da parte dei field validators; in caso contrario il risultato sarà False. L’esecuzione del codice ci porterà ad ottenere entrambi i risultati.</p>
+    <br>
+    <p>Quando il programma sarà avviato e l’utente navigherà per la prima volta sulla pagina Web, il server riceverà una richiesta di tipo GET che non conterrà alcun tipo di dato proveniente dal form; non essendoci dati inseriti, non ci saranno dati da validare, motivo per cui il blocco if viene saltato e la validate_on_submit() restituisce False come risultato. La richiesta viene poi gestita dalla render_template che prende come argomenti della funzione l’oggetto form e la variabile nome settata a None come valore. L’utente, quindi, vede a schermo il form e può compilarlo.</p>
+    <br>
+    <p>Nel momento in cui il form viene compilato da parte dell’utente, il server riceve una richiesta di tipo POST con i dati provenienti dal modulo compilato. La validate_on_submit() verrà eseguita ed invocherà il validatore Required() per controllare se la casella di testo sia effettivamente stata riempita, prima di premere il pulsante di invio. Se la casella del nome non è vuota, il validatore confermerà la presenza di un dato e la funzione validate_on_submit() restituirà True come valore. Il nome che ora è stato inserito all’interno della stringa testuale verrà assegnato alla variabile name presente nel blocco if e la stringa verrà svuotata, in modo tale da poter essere nuovamente riempita.</p>
+    <br>
+    <p>Infine, la richiesta verrà sempre gestita dalla render_template che in questo caso avrà come argomento sempre l’oggetto form ma, rispetto al caso precedente, la variabile name prenderà come valore il nome inserito nel form.</p>
+    <h1 class="display-3"> Il rendering HTML dei form</h1>
+    <p>Una volta terminata la programmazione con Python della classe e della view function, è ora necessario programmare la pagina HTML in modo tale che il form sia visibile dall’utente una volta che quest’ultimo navigherà sulla pagina.</p>
+    <br>
+    <p>Nel capitolo precedente è stato visto come è possibile integrare Bootstrap all’interno dei nostri template HTML per rendere la progettazione delle pagine Web più piacevole; anche in questo caso per la visualizzazione del form andremo a sfruttare Bootstrap. Con Flask-Bootstrap l’implementazione del form all’interno della pagina HTML può essere effettuata in una singola chiamata, andando così a modificare il template utilizzato in precedenza, aggiungendo solo poche righe di codice che verranno indicate nel seguito:</p>
+    <br>
+    <div class="container mt-4">
+        <pre><code class="html">
+          { % import "bootstrap/wtf.html" as wtf % }
+          { % block title % }Sito Web Tesi{ % endblock % }
+          { % block content % }
+          < div class="container" >
+            < div class="page header" >
+                < h2 >Ciao, { % if name % }{ { name } }{ % else % } }Utente non riconosciuto{ % endif % }!</h2>
+          < /div >
+          { { wtf.quick_form(form) } }
+          { % endblock % }
+        </code></pre>
+    </div>
+    <p>La direttiva import, presente nella prima riga, funziona allo stesso modo della medesima presente in Python e permette in questo caso di importare una serie di funzioni presenti nel file wtf.html, tali funzioni permettono di renderizzare un form Flask-WTF utilizzando Bootstrap.</p>
+    <br>
+    <p>Il blocco che conterrà il contenuto della pagina Web, in gergo noto anche come body, è ora diviso in due sezioni. La prima di queste due presenta il vero e proprio saluto personalizzato. Il condizionale if sottolinea che nel caso in cui il nome fosse quello inserito nel form, allora il saluto riporterà tale nome; altrimenti il nome visualizzato sarà ‘Utente non riconosciuto’. La seconda sezione conterrà la funzione wtf.quick_form(form) che riceverà come argomento il form precedentemente realizzato in Python e provvederà a renderizzarlo sfruttando lo stile di default di Bootstrap.</p>
+    <br>
+    <p>Terminati questi step, una volta mandato in esecuzione il programma, il risultato sarà il seguente:</p>
+    <img src="static/assets/img/portfolio/Utente0.png" class="text-align center" width="800" height="500">
+    <p>Una volta compilato il form e premuto il tasto ‘Invia’, il risultato sarà:</p>
+    <img src="static/assets/img/portfolio/utente1.png" class="text-align center" width="800" height="500">
+    <h1 class="display-3">2.2.3 Reindirizzamento e Sessioni Utente</h1>
+    <p>Il programma precedente risulta corretto, tuttavia presenta qualche problema di utilizzabilità. Una volta infatti inserito il nome e premuto invio, la pagina verrà aggiornata con il nuovo nome. Se, dopo questa operazione, andremo ad aggiornare la pagina manualmente sarà visualizzato un messaggio di avviso prima di poter compilare il modulo nuovamente:</p>
+    <img src="static/assets/img/portfolio/crm.png" class="text-align center" width="800" height="500">
+    <p>Questo errore avviene quando l’ultima richiesta inviata è di tipo POST, contenente dei dati del form; il refresh della pagina andrebbe a duplicare la compilazione del form. Siccome molti utenti non comprendono la natura del messaggio di conferma, è buona cosa evitare di far sì che l’ultima richiesta sia di tipo POST.</p>
+    <br>
+    <p>Tale problema può essere evitato andando a rispondere alla richiesta di POST non più con una normale risposta testuale, bensì con un redirect, quindi con URL collegato ad un’altra pagina. In questo modo quando il server riceverà la risposta, emetterà una richiesta di GET per l’URL indicato nel redirect; la pagina indicata nel redirect impiegherà qualche millisecondo a caricare e sarà poi visualizzata all’utente. Questo ciclo utilizzato per far sì che l’ultima richiesta sia di tipo GET è noto come pattern Post/Redirect/Get.</p>
+    <br>
+    <p>Anche questo metodo però comporta un problema. Quando l’applicazione andrà a gestire la richiesta di tipo POST avrà accesso al nome utilizzato all’interno del form; quando però tale richiesta terminerà i dati verranno persi. Siccome la richiesta verrà gestita con un redirect, l’applicazione deve andare in qualche modo a memorizzare il nome in modo tale che la nuova richiesta ne possa usufruire per costruire la risposta. Le applicazioni possono memorizzare dati da altre richieste, conservandoli all’interno delle user session ( o sessioni utente), ovvero delle aree private di memoria connesse a ciascun utente.</p>
+    <br>
+    <p>Utilizzando le user session potremmo modificare il codice precedente, andando così a risolvere il problema del messaggio di conferma rinvio modulo; il codice utilizzato è il seguente:</p>
+    <div class="container mt-4">
+        <pre><code class="python">
+          @app.route('/',methods = ['GET','POST'])
+          def index():
+              form = NameForm()
+              if form.validate_on_submit():
+                  session['name'] = form.name.data
+                  return redirect( URL _for('index'))
+          return render_template('user1.html',form=form,name=session.get('name'))
+        </code></pre>
+    </div>
+    <p>È possibile notare come la variabile nome ora è memorizzata all’interno della sessione utente come session[‘name’] in modo tale che essa possa essere memorizzata anche dopo che la richiesta terminerà. La funzione redirect() prende come unico argomento l’URL a cui reindirizzare l’utente. In questo caso l’URL a cui indirizzare è quello di root, il principale, motivo per cui la risposta potrebbe essere riscritta come redirect(‘/’); invece verrà inserito nella risposta il generatore di URL di Flask, URL_for() che andrà appunto a generare degli URL partendo dalla URL map, in modo tale da rendere ogni indirizzo compatibile con una qualsiasi modifica che verrà effettuata sulle routes.</p>
+    <br>
+    <p>L’ultimo cambiamento effettuato nel codice è quello nella render_template, dove ora la variabile nome verrà ottenuta dalla sessione mediante il comando session.get(‘name’). Utilizzando tale codice sarà visibile come, dopo aver inserito il nome nel form e aggiornato la pagina, il risultato non cambierà e non verranno presentati a display messaggi di warning.</p>
+    <h1 class="display-3">Informare l'utente del cambiamento</h1>
+    <p>Eseguito il programma, potremmo notare come il cambio del nome avvenga in maniera automatica e il cambiamento sia ben visibile. Tuttavia, nelle applicazioni Web più complesse, è consigliato sempre avvisare l’utente di un cambiamento avvenuto sulla pagina, specie se la causa del cambiamento è proprio un input di un utente. Sarà capitato molto spesso di tentare di accedere ad un sito Web, non ricordando però le proprie credenziali; nel caso in cui ciò accada il Web server provvederà prontamente a ricaricare il form di login, facendo però apparire un messaggio per avvisare l’utente che le credenziali non sono corrette. Tali notifiche all’utente in gergo sono note come flash message.</p>
+    <br>
+    <p>Flask possiede, all’interno del suo nucleo, una funzione flash()che può essere utilizzata per questo scopo. Partendo dall’ultimo codice scritto, in cui sono già incluse le user session, andremo a modificare qualche particolare per poter informare l’utente che il nome nella pagina Web è stato cambiato e che, di conseguenza, la sessione utente è stata aggiornata.</p>
+    <br>
+    <p>Il codice utilizzato in Python è il seguente:</p>
+     <div class="container mt-4">
+        <pre><code class="python">
+          @app.route('/',methods = ['GET','POST'])
+          def index():
+              form = NameForm()
+              if form.validate_on_submit():
+                  old_name = session.get('name')
+                  if old_name is not None and old_name != form.name.data:
+                    flash('Hai cambiato il nome!')
+                    session['name'] = form.name.data
+                    form.name.data = ''
+                    return redirect(URL_for('index'))
+          return render_template('index.html',form=form,name=session.get('name'))
+        </code></pre>
+      </div>
+    <p>Nell’esempio sopra proposto, ogni volta che un nome verrà inviato esso sarà confrontato con il nome precedentemente memorizzato nella user session; nel caso in cui i due nomi fossero diversi sarà invocata la funzione flash() che proietterà un messaggio a schermo per informare l’utente.</p>
+    <br>
+    <p>La sola programmazione Python non è sufficiente però per visualizzare sul sito Web i messaggi flash; è necessario andare a modificare anche il codice Bootstrap. In particolare Flask rende disponibile per i template una funzione get_flashed_messages()che ha il compito di leggere i messaggi flash che si vuole l’utente visualizzi e di renderizzarli in modo che essi possano essere visibili. Nell’esempio sottostante sfrutteremo un template CSS di base reso disponibile da Bootstrap per visualizzare messaggi di alert:</p>
+    <div class="container mt-4">
+        <pre><code class="html">
+            < div class="alert alert warning" >
+              < button type="button" class= "close" data dismiss="alert">&times;< /button >
+              { {message} }
+        < /div >
+        { % endfor % }
+        </code></pre>
+    </div>
+    <p>In queste poche righe di codice le istruzioni più interessanti sono quelle legate al ciclo di messaggi; quest’ultimo viene eseguito perché i messaggi da dover far apparire a display potrebbero essere diversi, uno per ogni volta che la funzione flash() viene richiamata. Il ciclo scorrerà tutte le chiamate alla funzione, riproducendo a display in ordine i messaggi in coda.</p>
+  </div>
+</body>
+</html>

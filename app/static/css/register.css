@@ -1,0 +1,38 @@
+/* Custom styles for the register page */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-top: 50px;
+}
+
+.card-header {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.card-footer a {
+    color: #007bff;
+}
+
+.card-footer a:hover {
+    text-decoration: none;
+    color: #0056b3;
+}

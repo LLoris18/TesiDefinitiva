@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Capitolo 1</title>
+  <!-- Stili di Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Stili di highlight.js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css" rel="stylesheet">
+  <!-- Script di highlight.js -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="display-3">Capitolo 1: Introduzione ai Framework</h1>
+    <hr>
+    Addentrandosi nella programmazione Python, risulta molto frequente sentire parlare di framework e delle loro numerose funzionalità aggiuntive; essi vengono divisi in 3 macrocategorie. In una prima categoria troviamo i framework con obiettivo generico, noti come full-stack, i quali rappresentano soluzioni complete per ogni necessità di sviluppo; al contrario invece in una seconda categoria troviamo i framework che restringono il loro campo di obiettivi ad una singola attività specifica, noti come microframework. Infine, abbiamo i framework asincroni, che potrebbero essere inseriti all’interno della definizione di microframework; sono contraddistinti dal termine asincrono che va a sottolineare la gestione di connessioni multiple simultanee mediante la libreria asincrona di Python
+    Nella lista dei migliori framework di Python troviamo Flask.
+    <hr>
+      <h1 class="display-3">1.1 Che cos’è Flask? </h1>
+    Flask fa parte della categoria dei microframework. Il termine micro va a sottolineare anche la dimensione stessa di questo pacchetto, che risulta essere abbastanza piccola a tal punto che, una volta acquisita una certa familiarità, è possibile riuscire a comprendere l’interno codice sorgente. Per quanto però la dimensione risulti essere contenuta, Flask non è da meno rispetto ad altri framework.
+    <hr>
+      <h1 class="display-3">1.1.1 La struttura di Flask</h1>
+    Flask è chiamato microframework per la sua natura estendibile. In effetti la sua struttura è formata da: un core o nucleo, solido, dotato di funzioni di base, e da una serie di extensions o estensioni, in grado di aggiungere funzionalità al pacchetto; tali funzionalità aggiuntive a cui si fa riferimento potranno essere ottenute da altri framework già scritti da altri autori, oppure programmate direttamente dall’utilizzatore, in modo da avere un buon fitting con le specifiche del problema.
+    Alla base di tutta la struttura, Flask presenta due grandi componenti fondamentali. Tali due toolkit sono Werkzeug, una libreria di utility di tipo Web Server Gateway Interface (WSGI), utilizzata per attività di debugging e routing, e Jinja2, ovvero un motore di template sfruttato da Flask e da numerosi altri framework.
+    Entrambi i toolkit sono autorizzati dal creatore stesso di Flask, Artmin Ronacher. Più precisamente queste due componenti sono state scritte da un gruppo di appassionati di Python, Pocoo. Il leader di Pocoo è lo stesso creatore di Flask.
+    <hr>
+      <h1 class="display-3">1.2 Come installare Flask</h1>
+    La maggior parte dei pacchetti Python vengono installati mediante l’utility PIP; tale module manager o  packet manager permette in modo molto semplice l’installazione semplicemente scrivendo dalla console del terminale la riga di codice:
+    <div class="container mt-4">
+        <pre><code class="python">
+            pip install nome_pacchetto
+        </code></pre>
+    </div>
+    Di conseguenza, la riga di codice per installare Flask sulla macchina sarà
+    <div class="container mt-4">
+        <pre><code class="python">
+            pip install flask
+        </code></pre>
+    </div>
+    A questo punto, se non risultassero particolari messaggi di errore, potremmo utilizzare tutte le funzionalità di Flask durante la programmazione in linguaggio Python.
+    <hr>
+      <h1 class="display-3">1.2.1 Gli ambienti virtuali</h1>
+    La procedura di installazione di Flask vista precedentemente, risulta essere piuttosto semplice; tuttavia, diventa più articolata se introduciamo il concetto di virtual environment.
+    Utilizzando la semplice riga di codice
+      <p><div class="container mt-4">
+        <pre><code class="python">
+            pip install flask
+        </code></pre>
+    </div></p>, andremo a rendere disponibile il framework sull’interprete Python globale; più aumenta il numero di pacchetti sull’interprete globale, più aumenta la probabilità di incappare in conflitti tra moduli o problemi di incompatibilità tra le versioni dei moduli, motivo per il quale si ricorre ai virtual environment.
+    La traduzione letterale come ambiente virtuale, indica di per sé la creazione di una sorta di spazio privato; ciò non discosta troppo dalla definizione puntuale. Un ambiente virtuale risulta essere una copia dell’interprete Python in cui installare i pacchetti richiesti per la programmazione, senza intaccare direttamente l’interprete Python globale; in questo modo è possibile prevenire eventuali problemi di conflitti tra moduli, facendo sì che ogni ambiente utilizzi solo i pacchetti di cui ha bisogno e che l’interprete globale rimanga pulito e utilizzato solo come fonte di creazione di nuovi environment
+    <hr>
+
+      <h1 class="display-3">1.2.1 Come creare un ambiente virtuale in Python</h1>
+    I virtual environments sono creati all’interno di Python sfruttando un’utility di terze parti noto come virtualenv. Per installare virtualenv la procedura consigliata, suddivisa in step risulta essere la seguente
+    <ul>
+        <li>	Creare la cartella di lavoro</li>
+    <li>	Aprire la console di comando all’interno della cartella stessa</li>
+        <li>	Digitare la riga di codice pip install virtualenv</li>
+    </ul>
+    Una volta terminata la procedura, avremo a disposizione tutte le funzionalità di questo pacchetto di utility e potremo finalmente creare l’ambiente virtuale.
+    Posizionandosi nella stessa cartella di lavoro creata in precedenza, basterà di nuovo aprire la cartella di comando e inviare la riga di codice
+    virtualenv nome ambiente
+    Un nome comune da utilizzare per l’ambiente da creare è venv:
+    <div class="container mt-4">
+        <pre><code class="python">
+            virtualenv venv
+        </code></pre>
+    </div>
+    Potremmo notare che la procedura sarà andata a buon fine, siccome recandosi nella cartella di lavoro, sarà presente una cartella con lo stesso nome da noi scelto per l’ambiente, con all’interno diversi file propri del virtual environment.
+    Nel corso degli anni, gli aggiornamenti di Python hanno ulteriormente semplificato questa procedura, in quanto dalla versione Python 3.3 è incluso il supporto agli ambienti virtuali sfruttando proprio il modulo venv.
+    <hr>
+      <h1 class="display-3">1.3 L’inizializzazione</h1>
+    Ogni applicazione Flask, per poter funzionare, ha bisogno di creare un’istanza dell’applicazione; quest’ultima risulta essere un oggetto di classe Flask che viene creato in questo modo:
+    <div class="container mt-4">
+        <pre><code class="python">
+        import Flask
+            app = Flask(__name__)
+        </code></pre>
+    </div>
+    L’unico argomento da dover fornire al costruttore di classe, Flask, è il nome del modulo principale; per la maggior parte delle applicazioni, la variabile Python __name__ è il corretto argomento da fornire al costruttore
+    Il Web server, una volta ricevute tutte le richieste dai diversi client, procederà ad inoltrarle all’istanza, sfruttando il protocollo WSGI.
+    <h1 class="display-3">1.3.1 Le Routes</h1>
+    È stato precedentemente illustrato come sia effettivamente l’istanza dell’applicazione Flask a gestire le richieste che arrivano dal Web server. Purché la gestione avvenga correttamente, c’è bisogno che l’istanza conosca quale codice eseguire per ogni URL che ha inviato una richiesta. Tale associazione di una determinata funzione da eseguire a uno specifico URL è nota come route; l’insieme delle routes permettono di costituire un mapping che l’istanza potrà avere a disposizione per servire al meglio ogni richiesta ricevuta da parte dei client.
+    Il modo più semplice e più conveniente, nonché il più utilizzato, per definire una route in un’applicazione Flask, è mediante il comando app.route. Questo costrutto nella programmazione Python è noto come decorator, ovvero un componente utilizzato per modificare, in diversi modi, il comportamento di una funzione; l’app.route stesso ha lo scopo di registrare la funzione eseguita come route
+    Volendo testare quanto è stato detto, per verificare il funzionamento delle route potremmo semplicemente scrivere:
+    <div class="container mt-4">
+        <pre><code class="python">
+        @app.route(‘/ciaoprova’)
+        def index():
+        return ‘<h1>Questo è il primo esempio di route</h1>
+        </code></pre>
+    </div>
+    <img src = "static/assets/img/portfolio/routediprova.png" class="text-center">
+    <h1 class="display-3">1.3.2 Le Views</h1>
+    Nell’esempio precedente, proprio al dì sotto della creazione della route, è possibile notare la definizione di una funzione index().Tale funzione, in questo caso, presenta solo il valore di ritorno, noto anche come response, ovvero ciò che il client riceverà; se il client fosse stato un Web browser, la response sarebbe stata il documento da far visualizzare all’utente
+    Funzioni come la precedente sono note come view functions, il cui scopo è quello di ricevere in ingresso una certa request (la richiesta da parte del client) e fornire in uscita una response.
+      <h1 class="display-3">1.3.3 L’oggetto Response</h1>
+    La risposta di una view potrebbe essere semplicemente una stringa, formattata in linguaggio HTML per poter essere visualizzata sul Web. Tuttavia, il protocollo HTTP, comunemente utilizzato sul Web, richiede molto più di una stringa come risposta alla richiesta. Una parte molto importante della response di HTTP è lo status code, ovvero il codice che evidenzia lo stato della richiesta.
+    In una generica risposta, Flask, per default, imposta lo status code a un valore pari a 200, il quale indica che la richiesta è stata gestita e portata al termine correttamente. È ragionevole pensare che non tutte le richieste vengano gestite correttamente o che non tutte siano prive di errori. Se ci trovassimo in uno di questi due casi, risulterebbe necessario utilizzare un diverso status code.
+    Quando una funzione di view ha la necessità di indicare un codice diverso da quello di default, tale codice numerico può essere indicato come secondo valore di ritorno dopo la risposta testuale. Per esempio, nel caso di errore di Bad Request, la risposta conterrà il codice 400, indicato correttamente come nel codice seguente:
+    <div class="container mt-4">
+        <pre><code class="python">
+            @app.route
+            def index():
+                return ‘<h1>Bad Request</h1>’,400
+        </code></pre>
+    </div>
+    Ciò che si può mettere in evidenza da questo tipo di risposta è il fatto che, anche solo per indicare un semplice errore, c’è bisogno di fornire due argomenti da inserire nel return, il che potrebbe risultare disordinato a livello di scrittura e inefficiente. Flask propone una soluzione a questo «problema»; alle view è permesso restituire un oggetto di classe Response, che è possibile creare mediante la funzione make_response(). Quest’ultima prenderà in ingresso lo stesso numero di argomenti che potrebbe ritornare una view function.
+    Sfruttando quanto detto potremmo quindi modificare l’esempio precedente con:
+    <div class="container mt-4">
+        <pre><code class="python">
+              from flask import make_response
+                @app.route(‘/’)
+                def index():
+                    response = make_response(‘<h1>Bad Request</h1>’,400)
+                    return response
+        </code></pre>
+    </div>
+    Un ulteriore esempio di risposta di una view, definita anche speciale, è la risposta di redirect. Quest’ultima a differenza delle altre non presenta alcuna pagina, documento o stringa come risposta; il valore di ritorno che sarà fornito dalla vista risulterà essere semplicemente un reindirizzamento ad un altro URL.
+    Un redirect viene tipicamente indicato con uno status code 302 in aggiunta all’URL verso il quale eseguire il reindirizzamento. Visto il frequente utilizzo di questo strumento, Flask mette direttamente a disposizione una funzione redirect() per creare questa risposta:
+    <div class="container mt-4">
+        <pre><code class="python">
+                from flask import redirect
+
+                @app.route(‘/’)
+                def index():
+                    return redirect(‘http://www.esempio.com’)
+
+        </code></pre>
+    </div>
+    <h1 class="display-3">1.4  Gli ultimi passi: avviare il server</h1>
+    Per gestire le singole richieste provenienti dai diversi client è necessario che un server sia in ascolto; quest’ultimo in qualche modo, quindi, deve essere avviato. L’istanza dell’applicazione di Flask, di cui è stato discusso in precedenza, possiede un metodo di tipo run che va ad invocare il Web server integrato all’interno di Flask.
+    Per poter avviare il server le righe di codice da dover scrivere sono:
+        <div class="container mt-4">
+        <pre><code class="python">
+            if __name__ == ‘__main__’:
+                app.run(debug = True)
+
+        </code></pre>
+    </div>
+    Potremmo notare che, oltre all’istruzione descritta, nella prima riga compare un costrutto piuttosto particolare. Quest’ultimo viene utilizzato per assicurarsi che il Web server di Flask venga richiamato solo nel caso in cui lo script verrà eseguito direttamente.
+    La condizione imposta dall’if è, a livello di programmazione, molto forte in quanto permette al codice di avere diversi comportamenti a seconda del fatto che esso venga eseguito come programma o che venga importato come modulo all’interno di un altro programma di più grandi dimensioni.
+    Si assume quindi, tornando al caso del Web server, che nel caso  lo script verrà importato da un altro, dove quest’ultimo risulterà il padre nella relazione, andrà ad invocare un server diverso. In tal caso l’app.run non verrà eseguito
+    <h1 class="display-3">1.4.1 Il comportamento del server</h1>
+    Una volta inizializzato, il server, si porrà in una condizione di loop che continuerà fin quando il processo o l’applicazione stessa verranno interrotti. Questo ciclo permette al server di porsi in ascolto, gestire una richiesta e se possibile risolverla, per poi porsi nuovamente in ascolto di una nuova richiesta
+    Un’ulteriore caratteristica da dover evidenziare nel blocco di istruzioni utilizzato per avviare il server, è il parametro debug = True, posto all’interno di app.run. È possibile passare diversi parametri come argomenti al metodo app.run per modificare il comportamento del server e, alcuni di questi parametri, sono:
+    <ul>
+    <li>Host</li>
+    app.run(host=’0.0.0.0’), va a specificare su quale indirizzo IP il server Flask sarà in ascolto. Di norma questo valore è ‘127.0.0.1’, definito come «localhost», proprio per indicare che il server sarà accessibile solo localmente
+    <li>Port</li>
+    app.run(port=8080), specifica la porta su cui il server sarà in ascolto, il valore predefinito è 5000
+    <li>Debug</li>
+    app.run(debug=True), parametro molto utile da utilizzare in fase di sviluppo, in quanto ci consente di attivare il debugger e il reloader di Pyhton; questi due strumenti insieme ci permettono di riavviare il server ogni qualvolta verrà eseguita una modifica in fase di progettazione
+    o	È possibile disabilitare il reloader, quindi il riavvio automatico in modalità di debug, utilizzando il parametro use_reloader = False
+    <li>Processes</li>
+    app.run(processes=4), imposta il numero di processi del server; il valore predefinito è uno, ma il valore può essere aumentato per gestire un carico più pesante
+    <li>Passthrough_errors</li>
+    app.run(passthrough_errors = True), consente al server di rilanciare le eccezioni non gestite; il valore predefinito è false
+    <li>Threaded</li>
+    app.run(threaded = True), abilita il supporto per richieste concorrenti mediante thread
+    <li>SSL_context</li>
+    In questo caso l’utilizzo di questo parametro richiede una sintassi più articolata, nonché l’utilizzo della libreria ssl presente all’interno di Python. Il parametro verrà utilizzato per passare un oggetto SSLContext, per abilitare il protocollo HTTPS, in app.run, che conterrà all’interno i certificati e la chiave privata.
+    </ul>
+    <h1 class="display-3">1.5 La prima applicazione Web</h1>
+    Nei capitoli e sezioni precedenti, sono state trattate in maniera approfondita quali sono le diverse parti di una applicazione Web basata su Flask. In questo capitolo le parti precedenti verranno unite per scrivere una semplice applicazione.
+    In primo luogo, sarà necessario aprire il software per la programmazione Python, per lo sviluppo in questo caso è stato scelto Pycharm, un editor contenente diversi tool che offre un ambiente piuttosto facile da comprendere. Una volta creato un nuovo modulo su cui programmare, è necessario importare Flask all’interno del modulo per poter sfruttare tutte le sue funzioni:
+    <div class="container mt-4">
+        <pre><code class="python">
+            from flask import Flask
+        </code></pre>
+    </div>
+    Successivamente è necessario creare l’istanza di applicazione che gestirà le richieste che gli sono state inoltrate dal Web server:
+    <div class="container mt-4">
+        <pre><code class="python">
+            app = Flask(__name__)
+        </code></pre>
+    </div>
+    Le successive righe di codice ci permetteranno di creare la route e la view per rispettivamente indirizzare e visualizzare la risposta. In particolare, in questo caso molto semplice la risposta sarà una riga di codice HTML, racchiusa all’interno della funzione index().
+    <div class="container mt-4">
+        <pre><code class="python">
+              @app.route(‘/’)
+              def index():
+                return ‘<h1>Hello World!</h1>’
+        </code></pre>
+    </div>
+    Infine dovremmo avviare il Web server per far sì che esso possa porsi in ascolto di eventuali richieste dei Web client, per fare ciò scriveremo:
+    <div class="container mt-4">
+        <pre><code class="python">
+            if __name__ == ‘__main__’:
+                app.run(debug = True)
+        </code></pre>
+    </div>
+    <p>Una volta eseguita l’applicazione, controllando che essa sia priva di errori, per visualizzare ciò che è stato fatto dovremmo semplicemente aprire un Web browser e collegarci all’indirizzo localhost, sulla porta 5000, ovvero 127.0.0.1/5000.
+    Si riportano di seguito il codice completo e l’esito dell’applicazione</p>
+    <div class="container mt-4">
+        <pre><code class="python">
+            from flask import Flask
+            app = Flask(_name_)
+
+            @app.route(‘/’)
+            def index():
+                return ‘<h1>Hello World!</h1>’
+
+            if __name__ == ‘__main__’:
+                app.run(debug = True)
+
+        </code></pre>
+    </div>
+    <img src="static/assets/img/portfolio/helloworld.png" class="text-center">
+    <h1 class="display-3">1.5.1 Errori comuni dell’applicazione Web</h1>
+    Come indicato precedentemente, il protocollo HTTP esige, come elemento principale della risposta a una richiesta, uno status code. Nel caso in Figura 1 è possibile notare come, una volta invocata la view function, la stringa testuale venga rappresentata correttamente online; lo status code, in questo caso, risulterà pari a 200 ovvero il valore di una richiesta gestita correttamente. Nel caso più comune di errore, quello in cui la pagina Web risulta inesistente, lo status code risulterà essere pari a 404, in tal caso molto spesso l’indirizzo Web potrebbe essere stato digitato in maniera errata oppure la pagina Web potrebbe non esistere.
+
+    <p><img src="static/assets/img/portfolio/page.png" class="text-center"></p>
+
+    L’errore 404 non è l’unico in cui si può incappare durante l’esecuzione dell’applicazione; nella serie di errori più comuni, il primo tra tutti infatti è il 401. Il codice di errore 401 va a indicare che è stata compiuta una richiesta non autenticata. Supponendo di aver protetto una route mediante credenziali, se l’utente dovesse sbagliare le credenziali, la risposta HTML visualizzata porterebbe all’interno uno status code HTTP 401. Errori come il 400, 401, 404 o 410 (che ben poco differenzia dal 404), accadono nella fase di comunicazione tra client e server; molto spesso però il server stesso potrebbe presentare errori nella comunicazione anche con un altro server.
+    L’errore più generico lato server è sicuramente quello con status code 500. L’errore in questione non ha una vera e propria soluzione ben definita, in quanto generico la ricerca di una soluzione risulterà piuttosto onerosa. Ben diverso è invece l’errore 502. Quest’ultimo infatti è l’esempio più eclatante di errore di comunicazione tra due server. Noto anche come Bad Gateway, esso si verifica quando il server impiega più tempo del previsto per completare una richiesta. Simile all’errore 502 è l’errore con codice di stato 504, il Gateway Timeout; quest’ultimo a differenza del precedente implica che il server che funge da gateway all’interno della rete non ha risposto in un dato intervallo. Se la comunicazione tra server fosse impostata correttamente ma risultasse comunque impossibile accedere ad un dato servizio, l’errore che verrebbe visualizzato sullo schermo dell’utente sarebbe il 503 o Service Unavailable; in tal caso il server sarà in sovraccarico e non in grado di gestire ulteriori richieste.
+    <h1 class="display-3">1.5.2 La route dinamica. Un esempio avanzato</h1>
+    La prima versione dell’applicazione presentata risulta essere molto semplice e piuttosto generica; tuttavia essa rappresenta comunque un buon esempio applicativo per l’utilizzo di Flask. Volendo presentare un ulteriore esempio, più articolato, potremmo procedere con la creazione di un applicativo che, in uscita, saluterà l’utente che ha eseguito lo script.
+    Per buona parte l’applicazione risulterà uguale alla precedente, composta quindi dall’istanza, la route statica e la view con la stringa HTML. L’aggiunta particolare di questo applicativo è la route dinamica, ovvero una route che presenta una variabile all’interno, che in questo caso conterrà il nome dell’utente.
+    Andremo a dichiarare questa route con il comando:
+        <div class="container mt-4">
+        <pre><code class="python">
+          @app.route(‘/user/< name >’)
+        </code></pre>
+    </div>
+    A questo punto è necessario creare la view function che ci permetterà di visualizzare a schermo il nome dell’utente che eseguirà il programma; le righe di codice da scrivere sono:
+        <div class="container mt-4">
+        <pre><code class="python">
+          def user(name):
+            return ‘<h1> Ciao, %s!</h1>’ %name
+        </code></pre>
+    </div>
+    Nella stringa del saluto potremmo notare come è presente il simbolo % seguito dalla lettera s; tale simbolo è utilizzato con una grande varietà di tipologie di dati, in questo caso, seguito dalla lettera s, sta a specificare una concatenazione tra stringhe, dove la prima è la stringa ‘Ciao,’ e la seconda è la variabile che specifica il nome dell’utente.
+    A questo punto non resta che avviare il Web server e, questa volta, indicare sul Web browser l’URL ‘127.0.0.1/user/nome_utente’. Il risultato sarà il seguente
+    <img src="static/assets/img/portfolio/ciaoloris.png" class="text-center">
+    <h1 class="display-3">1.6 Gli applicativi Web. Il punto di vista grafico</h1>
+    Come è possibile notare, in entrambi i casi, i nostri applicativi risultano piuttosto scarni, privi di contenuto e di una parte grafica che rende più gradevole l’esperienza all’utente. Tale problema può essere risolto in diversi modi ma prima è necessario risalire alla sua origine.
+    Le view functions di Flask hanno due obiettivi totalmente indipendenti l’uno dall’altro, molto spesso mascherati come uno solo. Tali due obiettivi o task, formalmente sono definiti come business logic e presentation logic; combinare queste due task in una unica porta ad avere un codice difficile da capire e da gestire. Onde evitare che ciò capiti è necessario affidare la gestione della presentation logic ai templates, col fine principale di migliorare la gestibilità del codice.
+    Con il termine template si intende un file che contiene il testo di una risposta con delle variabili segnaposto per le parti dinamiche note solo nel momento in cui verrà eseguita la richiesta; il processo che rimpiazza tali variabili con i valori effettivi, restituendo poi una stringa come risposta finale, è nota come rendering. Le funzioni di rendering dei template vengono svolte in Flask dal modulo Jinja2, già citato come componente fondamentale del framework che stiamo analizzando.
+    <h1 class="display-3">1.6.1 Jinja2 e il rendering dei templates</h1>
+    Jinja è un motore di template, scritto in Python, il cui nome deriva da un termine giapponese la cui traduzione inglese è temple; il termine Jinja è stato scelto per assonanza con la sua traduzione inglese. Jinja permette la creazione di file HTML, XML o altri formati di linguaggi di markup che poi verranno restituiti all’utente sotto forma di risposta http. Semplificando si potrebbe dire che un template di tipo Jinja2 è un file che contiene il testo di una risposta, tale file inoltre contiene diverse componenti dinamiche sotto forma di variabili. Le variabili sono racchiuse, nel template, all’interno delle parentesi graffe; Jinja2 riconosce variabili di ogni tipo, anche complesse come liste, dizionari e oggetti
+    Di default, Flask cercherà i templates all’interno di una cartella templates, posta all’interno del percorso file dell’applicazione che staremo creando. La funzione che ci permetterà di integrare Flask con Jinja2 è la render_template; tale funzione prende come argomento il nome del template da dover cercare all’interno della cartella templates. Potranno poi essere aggiunti altri argomenti alla funzione, un esempio può essere quello delle coppie chiave/valore che rappresentano dei valori effettivi per delle variabili referenziate all’interno del template
+    Un esempio di render di un template potrebbe essere il seguente:  andremo a passare alla funzione render_template un template chiamato index.html, precedentemente compilato e inserito nella cartella templates. Vengono di sotto riportati il codice e l’esito dell’esecuzione:
+      <div class="container mt-4">
+        <pre><code class="python">
+          from flask import Flask
+          from flask import render_template
+          app = Flask(__name__)
+
+          @app.route('/')
+          def index():
+                return render_template('index.html')
+
+          if __name__ == '__main__':
+            app.run(debug = True)
+        </code></pre>
+    </div>
+    <img src="static/assets/img/portfolio/templtry.png" class="text-center">
+    <h1 class="display-3">1.6.2 L’Integrazione di Bootstrap su Flask</h1>
+    Rimanendo sempre nell’ambito dei templates e, più in generale, dell’aspetto grafico delle pagine Web, particolarmente interessante è la trattazione di Bootstrap. Bootstrap è un framework open source creato da Twitter, tale framework ha come principale obiettivo quello di fornire una serie di componenti per rendere la pagina Web più accattivante per l’utente. Bootstrap è un framework di tipo client-side, questo vuol dire che il server è coinvolto soltanto in modo indiretto; infatti, in questo caso, esso ha il solo scopo di fornire risposte di tipo HTML per referenziare i file CSS e JavaScript e inizializzare i loro relativi componenti. Il luogo ideale per eseguire questa inizializzazione è all’interno dei template
+    Per poter usufruire dei servizi messi a disposizione da Bootstrap, all’interno di Flask, è prima necessario installare il pacchetto Bootstrap; questo è possibile sfruttando sempre il comando pip. La riga di codice da scrivere sul terminale sarà:
+          <div class="container mt-4">
+        <pre><code class="python">
+        pip install flask-bootstrap
+        </code></pre>
+    </div>
+    Flask-Bootstrap verrà importato da un’estensione di Flask, nota come flask-ext. Bootstrap verrà incluso all’interno dell’applicazione sfruttando il codice:
+     <div class="container mt-4">
+        <pre><code class="python">
+          from flask.ext.bootstrap import Bootstrap
+          bootstrap = Bootstrap(app)
+
+        </code></pre>
+    </div>
+    Una volta inizializzato il pacchetto, per applicazione sarà possibile utilizzare un template di base che sfrutta il principio di ereditarietà, estendendo un template Jinja2 che definisce la struttura generale della pagina includendo tutti gli elementi di Bootstrap. Tale principio di ereditarietà ed estensione viene espresso mediante la direttiva extend all’interno del template, riferendosi al template base.html incluso all’interno del pacchetto Flask-Bootstrap; il template fornito da questo pacchetto è uno scheletro di una pagina Web che include codice CSS e JavaScript.
+    Sfruttando ora un template di esempio, andremo a visualizzare il codice e il risultato al fine poi di descrivere eventuali particolarità:
+    <div class="container mt-4">
+        <pre><code class="python">
+
+        { extends bootstrap/base.html }
+        { block title%}Sito Web Tesi{ endblock }
+        { block navbar }
+
+        < div class="navbar navbar-inverse" role="navigation">
+            < div class="container">
+                < div class="navbar-header">
+                    < button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                < span class="sr-only">Toggle navigation< /span>
+                < span class="icon-bar">< /span>
+                < span class="icon-bar">< /span>
+                < span class="icon-bar">< /span>
+                < /button>
+                < a class="navbar-brand" href="/">Home< /a>
+                < /div>
+                < div class="navbar-collapse collapse">
+                < ul class="nav navbar-nav">
+                    < li >< a href="/login">Login< /a >< /li >< /ul >
+                < /div >
+            < /div >
+        < /div >
+        { endblock }
+        { block content }
+        < div class=”page-header”>
+        < h1 >HelloVisitor< /h1 >
+        < /div >
+        { endblock }
+        </code></pre>
+    </div>
+
+    Molto interessante risulta essere la suddivisione in blocchi che apporta Bootstrap. È possibile notare come la prima riga di codice sia proprio quella di estensione citata in precedenza, successivamente il codice è composto da tre blocchi:
+    <ul>
+    <li>	Title</li>
+    Il titolo della pagina, ciò che viene visualizzato in alto nel nome della scheda
+    <li>	Navbar</li>
+    Una semplice barra di navigazione che sfrutta componenti di Bootstrap; in particolare abbiamo due bottoni, Home e Loris, che riconducono rispettivamente alla prima route generica e alla route utente
+    <li>	Content</li>
+    È il corpo della pagina, qualora venga visualizzato un semplice messaggio
+    Il risultato sarà il seguente:
+
+    <img src="static/assets/img/portfolio/paginaboot.png" class="text-center">
+  </div>
+</body>
+</html>

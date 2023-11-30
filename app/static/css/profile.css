@@ -1,0 +1,18 @@
+body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+}
+.profile-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+.profile-img {
+      max-width: 200px;
+      border-radius: 50%;
+}
+.user-info {
+      margin-top: 20px;
+}
